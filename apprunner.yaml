@@ -1,0 +1,35 @@
+version: 1.0
+runtime: python311
+build:
+  commands:
+    build:
+      - pip3 install --upgrade pip
+run:
+  runtime-version: 3.11.11
+  pre-run:
+    - pip3 install -r config/requirements/production.txt
+  command: sh startup.sh
+  network:
+    port: 8000
+  env:
+    - name: DJANGO_SETTINGS_MODULE
+      value: config.settings.production
+    - name: PROD_DJANGO_LOGGING_LEVEL
+      value: INFO
+
+  env:
+    - name: DJANGO_SETTINGS_MODULE
+      value: config.settings.production
+    - name: PROD_DJANGO_LOGGING_LEVEL
+      value: INFO
+    - name: PROD_EMAIL_HOST_USER
+      value: marthaler@gmail.com
+  secrets:
+    - name: PROD_EMAIL_HOST_PASSWORD
+      value-from:      "arn:aws:secretsmanager:REGION:123456789999:secret:LOCKBOX_NAME-ANHASH:PROD_EMAIL_HOST_PASSWORD::"
+    - name: PROD_DATABASE_URL
+      value-from: "arn:aws:secretsmanager:REGION:123456789999:secret:LOCKBOX_NAME-ANHASH:PROD_DATABASE_URL::"
+    - name: PROD_AWS_SECRET_ACCESS_KEY
+      value-from: "arn:aws:secretsmanager:REGION:123456789999:secret:LOCKBOX_NAME-ANHASH:PROD_AWS_SECRET_ACCESS_KEY::"
+    - name: PROD_AWS_ACCESS_KEY_ID
+      value-from: "arn:aws:secretsmanager:REGION:123456789999:secret:LOCKBOX_NAME-ANHASH:PROD_AWS_ACCESS_KEY_ID::"

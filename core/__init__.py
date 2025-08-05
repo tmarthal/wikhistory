@@ -1,0 +1,1 @@
+"""Initialise wikhistory Core App."""

@@ -1,0 +1,9 @@
+coverage==7.6.8
+dj-inmemorystorage==2.1.0
+
+pytest-django==4.9.0
+pytest==8.3.3
+pytest-reverse==1.8.0
+pytest-xdist==3.6.1
+tblib==3.0.0
+
